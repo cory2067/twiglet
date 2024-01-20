@@ -13,7 +13,6 @@ class GameObject(BaseModel):
     name: str
     object_description: str
     attack_description: str
-    attack: Attack
     durability: int
     accuracy: int
     speed: int
