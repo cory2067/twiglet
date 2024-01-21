@@ -11,7 +11,7 @@ document.querySelector("#pixi").appendChild(app.view);
 let hoveredObject = null;
 let draggingObject = null;
 let displayedObjects = [];
-const textures = {};
+let textures = {};
 
 app.stage.on('pointerup', onDragEnd);
 app.stage.on('pointerupoutside', onDragEnd);
@@ -22,14 +22,7 @@ app.stage.hitArea = app.screen;
 async function main() {
     // get all possible objects and their textures
     const objects = await getObjects();
-
-    for (const object of objects) {
-        for (const filename of object.sprites) {
-            const texture = PIXI.Texture.from(`/sprites/${filename}`);
-            texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
-            textures[filename] = texture;
-        }
-    }
+    textures = getTextures(objects);
     
     // build crafting area
     let obj = new PIXI.Graphics();
@@ -60,38 +53,14 @@ async function main() {
 }*/
 
 function createObject(object, x, y) {
-    let sprite;
-    if (object.sprites.length === 1) {
-        sprite = new PIXI.Sprite(textures[object.sprites[0]]);
-        sprite.anchor.set(0.5);
-    } else {
-        // try to merge sprites together
-        sprite = new PIXI.Container();
-        const numSprites = object.sprites.length;
-        for (const i in object.sprites) {
-            const filename = object.sprites[i];
-            const texture = textures[filename];
-            const subSprite = new PIXI.Sprite(texture);
-            subSprite.anchor.set(0.5);
-            subSprite.alpha = (numSprites - i + 2) / (numSprites + 2); // opacity fade
-            sprite.addChild(subSprite);
-        }
-    }
-
-    //allows intereaction
-    sprite.eventMode = 'static';
+    const sprite = createSprite(object, x, y, textures);
+    app.stage.addChild(sprite);
+    
     sprite.cursor = 'pointer';
-    //sprite.anchor.set(0.5); // doesn't work on container
     sprite.scale.set(0.5);
-    object.sprite = sprite;
     sprite.on('pointerdown', () => onDragStart(object));
     sprite.on('pointerover', () => onHover(object));
     sprite.on('pointerout', () => onHoverEnd());
-
-    sprite.x = x;
-    sprite.y = y;
-
-    app.stage.addChild(sprite);
 }
 
 function onDragStart(object) {

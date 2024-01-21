@@ -1,7 +1,7 @@
 
 const WIDTH = 1200;
-const HEIGHT = 300;
-const RATE = 1200; // the higher this number, the slower the battle goes
+const HEIGHT = 250;
+const RATE = 600; // the higher this number, the slower the battle goes
 
 const player = {
     name: "you",
@@ -26,6 +26,9 @@ const app = new PIXI.Application({ background: '#FEF9EF', width: WIDTH, height: 
 const ticker = PIXI.Ticker.shared;
 
 
+let textures = {};
+let activeSprites = [];
+
 document.querySelector("#pixi").appendChild(app.view);
 
 app.stage.eventMode = 'static';
@@ -33,6 +36,10 @@ app.stage.hitArea = app.screen;
 
 function updateWeapon(baseWeapon, activeModifiers) {
     return baseWeapon;
+}
+
+function computeTimeToNextAction(weapon, activeModifiers) {
+    return Math.ceil(RATE/(weapon.speed + 5));
 }
 
 function doTurn(actor, oppActor) {
@@ -63,8 +70,8 @@ function doTurn(actor, oppActor) {
     // update all modifiers
 
     // use modifiers + weapon to update time to next action
-    actor.timeToNextAction = Math.ceil(RATE/(actor.activeWeapon.speed + 5));
-
+    actor.timeToNextAction = computeTimeToNextAction(actor.activeWeapon, actor.activeModifiers);
+    setDisplayedWeapons(player.activeWeapon, opponent.activeWeapon);
 }
 
 function checkVictory() {
@@ -84,7 +91,29 @@ function checkVictory() {
     }
 }
 
+function addSprite(sprite) {
+    app.stage.addChild(sprite);
+    activeSprites.push(sprite);
+    sprite.scale.set(1);
+}
+
+function setDisplayedWeapons(weaponLeft, weaponRight) {
+    for (const sprite of activeSprites) {
+        app.stage.removeChild(sprite);
+    }
+    activeSprites = [];
+
+    const leftSprite = createSprite(weaponLeft, 0, 100, textures);
+    const rightSprite = createSprite(weaponRight, WIDTH-0, 100, textures);
+
+    addSprite(leftSprite);
+    addSprite(rightSprite);
+}
+
 async function loadArsenals() { 
+    const objects = await getObjects();
+    textures = getTextures(objects);
+
     const urlParams = new URLSearchParams(window.location.search);
     const arsenalId = urlParams.get('arsenal');
     const arsenal = await getArsenal(arsenalId);
@@ -98,6 +127,25 @@ async function loadArsenals() {
     }
 
     return [arsenal, opponentArsenal];
+}
+
+function handleAnimation() {
+    const getProgress = (actor) => {
+        return 1 - actor.timeToNextAction / computeTimeToNextAction(actor.activeWeapon, actor.activeModifiers);
+    };
+
+    const leftProgress = getProgress(player);
+    const rightProgress = getProgress(opponent);
+
+    const [leftSprite, rightSprite] = activeSprites;
+    leftSprite.scale.set(1+ 0.3 * leftProgress);
+    rightSprite.scale.set(1 + 0.3 * rightProgress);
+
+    leftSprite.x = 1200 * leftProgress;
+    rightSprite.x = WIDTH - 1200 * rightProgress;
+
+    leftSprite.rotation = 6.28 * leftProgress;
+    rightSprite.rotation = -6.28 * rightProgress;
 }
 
 async function gameLoop(delta) {
@@ -125,6 +173,8 @@ async function gameLoop(delta) {
 
     // check victory condition
     checkVictory()
+
+    handleAnimation()
 }
 
 async function main() {
@@ -140,6 +190,7 @@ async function main() {
     opponent.activeWeapon = opponentArsenal.objects[0];
     opponent.timeToNextAction = Math.ceil(RATE/(opponent.activeWeapon.speed + 5));
     opponent.arsenal = opponentArsenal;
+    setDisplayedWeapons(player.activeWeapon, opponent.activeWeapon);
     ticker.add(gameLoop)
 }
 
