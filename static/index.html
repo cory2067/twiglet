@@ -1,3 +1,38 @@
+<head>
+  <script src="https://pixijs.download/release/pixi.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/mvp.css"> 
+
+  <style>
+    #content {
+      width: auto;
+      display: flex;
+    }
+    #sidebar {
+      padding: 8px;
+    }
+  </style>
+</head>
+
+
 <body>
-  <p>hello world</p>
+  <div id="content">
+    <div id="pixi">
+    </div>
+    <div id="sidebar">
+      <h2>Crafting</h2>
+      <div style="height: 350px">
+        <h3>Selected object:</h3>
+        <div id="selected"></div>
+      </div>
+      <div style="height: 300px">
+        <h3>Objects to craft:</h3>
+        <div id="crafting"></div>
+      </div>
+      <textarea id="prompt" rows="4" cols="50" placeholder="What will you do with these items?"></textarea>
+      <button onclick="submit()">Craft</button>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/main.js"></script>
 </body>

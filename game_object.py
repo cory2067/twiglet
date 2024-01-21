@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from typing import Literal
 
 
 class Modifier(BaseModel):
@@ -19,3 +18,4 @@ class GameObject(BaseModel):
     strength: int
     debuff: Modifier | None
     buff: Modifier |  None
+    file: str | None

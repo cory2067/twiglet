@@ -1,7 +1,4 @@
-import os
-
 from game_object import GameObject, Modifier
-
 
 beaker_debuff = Modifier(
     stat_affected="accuracy",
@@ -20,6 +17,7 @@ beaker = GameObject(
     strength=10,
     debuff=beaker_debuff,
     buff=None,
+    file="beaker.png",
 )
 
 # ====================================================
@@ -41,6 +39,7 @@ beer = GameObject(
     strength=2,
     debuff=beer_debuff,
     buff=None,
+    file="beer.png",
 )
 
 # ====================================================
@@ -54,7 +53,8 @@ bone = GameObject(
     speed=3,
     strength=3,
     debuff=None,
-    buff=None
+    buff=None,
+    file="bone.png",
 )
 
 # ====================================================
@@ -68,7 +68,8 @@ drill = GameObject(
     speed=3,
     strength=4,
     debuff=None,
-    buff=None
+    buff=None,
+    file="drill.png",
 )
 
 # ====================================================
@@ -89,7 +90,8 @@ microphone = GameObject(
     speed=4,
     strength=1,
     debuff=None,
-    buff=microphone_buff
+    buff=microphone_buff,
+    file="microphone.png",
 )
 
 # ====================================================
@@ -110,5 +112,15 @@ wallet = GameObject(
     speed=5,
     strength=1,
     debuff=wallet_debuff,
-    buff=None
+    buff=None,
+    file="wallet.png",
 )
+
+OBJECTS = [
+    beaker,
+    beer,
+    bone,
+    drill,
+    microphone,
+    wallet,
+]
