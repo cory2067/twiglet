@@ -19,7 +19,7 @@ beaker = GameObject(
     strength=3,
     debuff=beaker_debuff,
     buff=None,
-    file="beaker.png",
+    sprites=["beaker.png"],
 )
 
 OBJECTS.append(beaker)
@@ -43,7 +43,7 @@ beer = GameObject(
     strength=2,
     debuff=beer_debuff,
     buff=None,
-    file="beer.png",
+    sprites=["beer.png"],
 )
 
 OBJECTS.append(beer)
@@ -60,7 +60,7 @@ bone = GameObject(
     strength=3,
     debuff=None,
     buff=None,
-    file="bone.png",
+    sprites=["bone.png"],
 )
 
 OBJECTS.append(bone)
@@ -77,7 +77,7 @@ drill = GameObject(
     strength=4,
     debuff=None,
     buff=None,
-    file="drill.png",
+    sprites=["drill.png"],
 )
 
 OBJECTS.append(drill)
@@ -101,7 +101,7 @@ microphone = GameObject(
     strength=1,
     debuff=None,
     buff=microphone_buff,
-    file="microphone.png",
+    sprites=["microphone.png"],
 )
 
 OBJECTS.append(microphone)
@@ -125,7 +125,7 @@ wallet = GameObject(
     strength=1,
     debuff=wallet_debuff,
     buff=None,
-    file="wallet.png",
+    sprites=["wallet.png"],
 )
 
 OBJECTS.append(wallet)
@@ -142,7 +142,7 @@ pickaxe = GameObject(
     strength=9,
     debuff=None,
     buff=None,
-    file="pickaxe.png",
+    sprites=["pickaxe.png"],
 )
 
 OBJECTS.append(pickaxe)
@@ -166,7 +166,7 @@ toothbrush = GameObject(
     strength=1,
     debuff=toothbrush_debuff,
     buff=None,
-    file="toothbrush.png",
+    sprites=["toothbrush.png"],
 )
 
 OBJECTS.append(toothbrush)
@@ -190,7 +190,7 @@ wire_clippers = GameObject(
     strength=0,
     debuff=None,
     buff=None,
-    file="wireclippers.png",
+    sprites=["wireclippers.png"],
 )
 
 OBJECTS.append(wire_clippers)
@@ -214,7 +214,7 @@ coffee_pot = GameObject(
     strength=6,
     debuff=None,
     buff=coffee_pot_buff,
-    file="coffeepot.png",
+    sprites=["coffeepot.png"],
 )
 
 OBJECTS.append(coffee_pot)
@@ -231,7 +231,7 @@ computer = GameObject(
     strength=4,
     debuff=None,
     buff=None,
-    file="computer.png",
+    sprites=["computer.png"],
 )
 
 OBJECTS.append(computer)
@@ -248,7 +248,7 @@ fork = GameObject(
     strength=5,
     debuff=None,
     buff=None,
-    file="fork.png",
+    sprites=["fork.png"],
 )
 
 OBJECTS.append(fork)
@@ -279,7 +279,7 @@ headphones = GameObject(
     strength=1,
     debuff=headphones_debuff,
     buff=headphones_buff,
-    file="headphones.png",
+    sprites=["headphones.png"],
 )
 
 OBJECTS.append(headphones)
@@ -303,7 +303,7 @@ pen = GameObject(
     strength=0,
     debuff=pen_debuff,
     buff=None,
-    file="pen.png",
+    sprites=["pen.png"],
 )
 
 OBJECTS.append(pen)
@@ -327,7 +327,7 @@ teacup = GameObject(
     strength=3,
     debuff=None,
     buff=teacup_buff,
-    file="teacup.png",
+    sprites=["teacup.png"],
 )
 
 OBJECTS.append(teacup)
@@ -351,7 +351,7 @@ videocamera = GameObject(
     strength=0,
     debuff=videocamera_debuff,
     buff=None,
-    file="videocamera.png",
+    sprites=["videocamera.png"],
 )
 
 OBJECTS.append(videocamera)
