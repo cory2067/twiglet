@@ -1,38 +1,51 @@
-<head>
-  <script src="https://pixijs.download/release/pixi.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/mvp.css"> 
-
-  <style>
-    #content {
-      width: auto;
-      display: flex;
-    }
-    #sidebar {
-      padding: 8px;
-    }
-  </style>
-</head>
+<html data-theme="light">
+  <head>
+    <script src="https://pixijs.download/release/pixi.js"></script>
+    <!--<link rel="stylesheet" href="https://unpkg.com/mvp.css"> -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.min.css"
+    />
 
 
-<body>
-  <div id="content">
-    <div id="pixi">
-    </div>
-    <div id="sidebar">
-      <h2>Crafting</h2>
-      <div style="height: 350px">
-        <h3>Selected object:</h3>
-        <div id="selected"></div>
+    <style>
+      :root {
+        --pico-font-size: 90%;
+        --pico-spacing: 0.5rem;
+      }
+      #content {
+        width: auto;
+        display: flex;
+      }
+      #sidebar {
+        padding: 8px;
+      }
+    </style>
+  </head>
+
+
+  <body>
+    <div id="content">
+      <div id="pixi">
       </div>
-      <div style="height: 300px">
-        <h3>Objects to craft:</h3>
-        <div id="crafting"></div>
+      <div id="sidebar">
+        <article style="min-height: 300px">
+          <header><strong>Selected object</strong></header>
+          <div id="selected"></div>
+        </article>
+        <article>
+          <header><strong>Crafting</strong></header>
+          <div id="crafting" style="min-height: 200px">
+          </div>
+          <progress id="progress-bar" style="opacity: 0"></progress>
+          <textarea id="prompt" rows="4" cols="50" placeholder="What will you do with these items?"></textarea>
+          <button id="craft-button" disabled="true" onclick="submitCraft()">Craft</button>
+          <button class="contrast" onclick="">Finished</button>
+        </article>
       </div>
-      <textarea id="prompt" rows="4" cols="50" placeholder="What will you do with these items?"></textarea>
-      <button onclick="submit()">Craft</button>
     </div>
-  </div>
 
-  <script src="/js/api.js"></script>
-  <script src="/js/main.js"></script>
-</body>
+    <script src="/js/api.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

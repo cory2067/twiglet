@@ -118,6 +118,9 @@ function renderSidebar(selectedObject) {
     const craftingObjects = getCraftingObjects();
     const craftingEl = document.querySelector("#crafting");
     renderCraftingList(craftingEl, craftingObjects);
+
+    const craftButton = document.querySelector("#craft-button")
+    craftButton.disabled = (craftingObjects.length === 0);
 }
 
 function renderObjectDescription(el, o) {
@@ -147,10 +150,18 @@ function renderCraftingList(el, objs) {
     `
 }
 
-async function submit() {
-    const prompt = document.querySelector("#prompt").value;
+async function submitCraft() {
+    const crafting = document.querySelector("#crafting");
+    const prompt = document.querySelector("#prompt");
+    const button = document.querySelector("#craft-button");
+    const progress = document.querySelector("#progress-bar");
+    console.log(progress)
+
+    button.disabled = true;
+    progress.style.opacity = 1;
     const objects = getCraftingObjects();
-    const craftedObject = await craft(objects, prompt);
+    const craftedObject = await craft(objects, prompt.value);
+    progress.style.opacity = 0;
     initTexture(craftedObject);
 
     for (const object of objects) {
@@ -159,6 +170,7 @@ async function submit() {
     // remove destroyed objects from displayedObjects
     displayedObjects = displayedObjects.filter(o => !!o.sprite.transform);
     renderSidebar(craftedObject);
+    prompt.value = "";
    
     createObject(
         craftedObject,
