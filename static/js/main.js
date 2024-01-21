@@ -4,7 +4,7 @@ const CRAFTING_AREA_WIDTH = 150;
 const MAIN_AREA_WIDTH = WIDTH - CRAFTING_AREA_WIDTH;
 const MAX_CRAFTING_OBJECTS = 3;
 
-const app = new PIXI.Application({ background: '#eeeeee', width: WIDTH, height: HEIGHT });
+const app = new PIXI.Application({ background: '#FEF9EF', width: WIDTH, height: HEIGHT });
 
 document.querySelector("#pixi").appendChild(app.view);
 
@@ -30,12 +30,13 @@ async function main() {
     obj.beginFill(0xcccccc);
     obj.drawRect(MAIN_AREA_WIDTH, 0, CRAFTING_AREA_WIDTH, HEIGHT);
     app.stage.addChild(obj);
-   
-    const numObjects = 25;
+  
+    /*const numObjects = 16;
     for (let i = 0; i < numObjects; i++) {
         const randomObj = objects[Math.floor(Math.random() * objects.length)];
         displayedObjects.push({...randomObj});
-    }
+    }*/
+    displayedObjects = objects; // for now, just display all objects exactly once
 
     for (const object of displayedObjects) {
         createObject(
