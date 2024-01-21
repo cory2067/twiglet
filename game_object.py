@@ -18,7 +18,7 @@ class GameObject(BaseModel):
     strength: int
     debuff: Modifier | None
     buff: Modifier |  None
-    file: str | None
+    sprites: list[str] = []
 
 class Arsenal(BaseModel):
     id: str

@@ -12,7 +12,7 @@ def stringify(game_object):
     '''
     Returns a string rep of a GameObject `game_object` without the file name
     '''
-    return str(game_object.model_dump())
+    return str(game_object.model_dump(exclude=["sprites"]))
 
 
 # ================== openAI API calls
@@ -49,7 +49,7 @@ Do not include any explanations, only provide a RFC8259 compliant JSON response 
     "reason": "short, one-sentence description of how the buff works"
   }},
 }}
-'''.format(stringify(beaker), stringify(microphone), stringify(drill))
+'''
 
 
 def generate_ai_gameobject(user_selected_items, user_request):
@@ -79,14 +79,11 @@ def generate_ai_gameobject(user_selected_items, user_request):
     json_response = response.choices[0].message.content
     game_object_dict = json.loads(json_response)
 
-    if game_object_dict["debuff"] is not None:
-        debuff = Modifier(**game_object_dict["debuff"])
-        game_object_dict["debuff"] = debuff
-    if game_object_dict["buff"] is not None:
-        buff = Modifier(**game_object_dict["buff"])
-        game_object_dict["buff"] = buff
+    sprites = []
+    for obj in user_selected_items:
+        sprites.extend(obj.sprites)
 
     game_object_dict["file"] = "beaker.png" # no generative images for now
-    game_object = GameObject(**game_object_dict)
+    game_object = GameObject(**game_object_dict, sprites=sprites)
     print ("returned GameObject: {}".format(stringify(game_object)))
     return game_object
