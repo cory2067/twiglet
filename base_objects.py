@@ -355,3 +355,22 @@ videocamera = GameObject(
 )
 
 OBJECTS.append(videocamera)
+
+# ====================================================
+
+nail = GameObject(
+    name="Nail",
+    object_description="A somewhat large and pointy nail",
+    attack_description="Stab the opponent with the nail",
+    durability=2,
+    accuracy=70,
+    speed=5,
+    strength=2,
+    debuff=None,
+    buff=None,
+    sprites=["nail.png"],
+)
+
+OBJECTS.append(nail)
+
+# ====================================================
