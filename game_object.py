@@ -1,9 +1,9 @@
 from pydantic import BaseModel
-
+from typing import Literal
 
 class Modifier(BaseModel):
-    stat_affected: str
-    value: int
+    stat_affected: Literal["accuracy", "speed", "strength"]
+    value: float
     duration: int
     reason: str
 
