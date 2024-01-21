@@ -1,0 +1,37 @@
+<html data-theme="light">
+  <head>
+    <script src="https://pixijs.download/release/pixi.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.min.css"
+    />
+
+
+    <style>
+      :root {
+        --pico-font-size: 90%;
+        --pico-spacing: 0.5rem;
+      }
+      #content {
+        width: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    </style>
+  </head>
+
+
+  <body>
+    <div id="content">
+      <div id="pixi">
+      </div>
+      <div id="log">
+        Battle log items here(?)
+      </div>
+    </div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/battle.js"></script>
+  </body>
+</html>
