@@ -52,19 +52,18 @@ function doTurn(actor, oppActor) {
     if (randNum < weapon.accuracy/100) {
         oppActor.hp -= weapon.strength; // subtract damage from opp health
         battleLog.innerText += `${actor.name} dealt ${weapon.strength} damage to ${oppActor.name} with ${weapon.name}!\n`
-
-        actor.activeWeapon.durability -= 1; // decrement durability, then replace weapon if needed
-        if (actor.activeWeapon.durability <= 0) { 
-            actor.activeWeaponIndex += 1;
-            actor.activeWeapon = actor.arsenal.objects[actor.activeWeaponIndex];
-
-            if (!actor.activeWeapon) ticker.stop()
-            battleLog.innerText += `${actor.name} changed weapons to ${actor.activeWeapon.name}\n`
-        }
-
-        // add new buffs and debuffs associated with hit
     } else {
         battleLog.innerText += `${actor.name} tried to attack ${oppActor.name} with ${weapon.name} but missed!\n`
+    }
+
+    // update durability no matter what
+    actor.activeWeapon.durability -= 1; // decrement durability, then replace weapon if needed
+    if (actor.activeWeapon.durability <= 0) { 
+        actor.activeWeaponIndex += 1;
+        actor.activeWeapon = actor.arsenal.objects[actor.activeWeaponIndex];
+
+        if (!actor.activeWeapon) ticker.stop()
+        battleLog.innerText += `${actor.name} changed weapons to ${actor.activeWeapon.name}\n`
     }
 
     // update all modifiers
