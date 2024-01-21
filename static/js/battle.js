@@ -2,10 +2,11 @@
 const WIDTH = 1200;
 const HEIGHT = 250;
 const RATE = 600; // the higher this number, the slower the battle goes
+const MAX_HP = 30;
 
 const player = {
     name: "you",
-    hp: 30,
+    hp: MAX_HP,
     activeWeapon: null,
     activeWeaponIndex: 0,
     timeToNextAction: null,
@@ -14,7 +15,7 @@ const player = {
 }
 const opponent = {
     name: "opponent",
-    hp: 30,
+    hp: MAX_HP,
     activeWeapon: null,
     activeWeaponIndex: 0,
     timeToNextAction: null,
@@ -145,6 +146,11 @@ function handleAnimation() {
 
     leftSprite.rotation = 6.28 * leftProgress;
     rightSprite.rotation = -6.28 * rightProgress;
+
+    const leftHealth = document.querySelector("#player1 progress")
+    const rightHealth = document.querySelector("#player2 progress")
+    leftHealth.value = player.hp / MAX_HP;
+    rightHealth.value = opponent.hp / MAX_HP;
 }
 
 async function gameLoop(delta) {
