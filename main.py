@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+
 from api_models import GetObjectsResponse, PostCraftRequest, PostCraftResponse
 from game_object import GameObject
 from base_objects import OBJECTS
+from engine.create_new_items import generate_ai_gameobject
 
 app = FastAPI()
 
@@ -22,8 +24,9 @@ def craft(request: PostCraftRequest) -> PostCraftResponse:
     objects = request.objects
     print(prompt)
     print(objects)
+    crafted_object = generate_ai_gameobject(objects, prompt)
     return PostCraftResponse(
-        crafted_object=objects[0] # temp
+        crafted_object=crafted_object # temp
     )
 
 
