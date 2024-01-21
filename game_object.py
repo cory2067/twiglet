@@ -19,3 +19,8 @@ class GameObject(BaseModel):
     debuff: Modifier | None
     buff: Modifier |  None
     file: str | None
+
+class Arsenal(BaseModel):
+    id: str
+    name: str
+    objects: list[GameObject]

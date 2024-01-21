@@ -32,14 +32,15 @@
           <header><strong>Selected object</strong></header>
           <div id="selected"></div>
         </article>
-        <article style="width: 500px">
-          <header><strong>Crafting</strong></header>
+        <article id="crafting-section" style="width: 500px">
+          <header><strong id="crafting-text">Crafting</strong></header>
           <div id="crafting" style="min-height: 200px">
           </div>
           <progress id="progress-bar" style="opacity: 0"></progress>
           <textarea id="prompt" rows="4" cols="50" placeholder="What will you do with these items?"></textarea>
           <button id="craft-button" disabled="true" onclick="submitCraft()">Craft</button>
-          <button class="contrast" onclick="">Finished</button>
+          <button id="finish-button" class="contrast" onclick="finishCrafting()">Finish Crafting</button>
+          <button id="battle-button" onclick="startBattle()" style="display: none">Battle!</button>
         </article>
       </div>
     </div>

@@ -108,7 +108,11 @@ function onDragMove(event) {
 }
 
 function getCraftingObjects() {
-    return displayedObjects.filter(o => o.sprite.position.x > MAIN_AREA_WIDTH);
+    return displayedObjects
+        .filter(o => o.sprite.position.x > MAIN_AREA_WIDTH)
+        .sort(
+            (a, b) => a.sprite.position.y - b.sprite.position.y
+        );
 }
 
 function renderSidebar(selectedObject) {
@@ -174,7 +178,6 @@ async function submitCraft() {
     const prompt = document.querySelector("#prompt");
     const button = document.querySelector("#craft-button");
     const progress = document.querySelector("#progress-bar");
-    console.log(progress)
 
     button.disabled = true;
     progress.style.opacity = 1;
@@ -198,6 +201,25 @@ async function submitCraft() {
     displayedObjects.push(craftedObject);
     renderSidebar(craftedObject);
 }
+
+function finishCrafting() {
+    const craftButton = document.querySelector("#craft-button");
+    const finishButton = document.querySelector("#finish-button");
+    const battleButton = document.querySelector("#battle-button");
+    const craftingText = document.querySelector("#crafting-text")
+    const prompt = document.querySelector("#prompt");
+
+    craftButton.style.display = 'none';
+    finishButton.style.display = 'none';
+    battleButton.style.display = 'inline-block';
+    craftingText.innerText = "Choose your 5 strongest weapons"
+    prompt.style.display = 'none';
+}
  
+async function startBattle() {
+    const arsenalId = await submitArsenal(displayedObjects, "My Arsenal"); // todo: name
+    console.log(arsenalId)
+    window.location.href = `/battle.html?arsenal=${arsenalId}`
+}
 
 main();
