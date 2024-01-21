@@ -108,6 +108,9 @@ function setDisplayedWeapons(weaponLeft, weaponRight) {
 
     addSprite(leftSprite);
     addSprite(rightSprite);
+
+    renderObjectDescription(document.querySelector("#player1-weapon"), weaponLeft);
+    renderObjectDescription(document.querySelector("#player2-weapon"), weaponRight);
 }
 
 async function loadArsenals() { 

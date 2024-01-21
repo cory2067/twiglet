@@ -39,3 +39,36 @@ function createSprite(object, x, y, textures) {
     sprite.y = y;
     return sprite;
 }
+
+function renderStatusEffect(effect, isBuff) {
+    if (!effect) return '';
+    return `
+        <p>
+        ${isBuff ? 'Increases your' : "Decreases opponent's"} ${effect.stat_affected} by ${effect.value} for ${effect.duration} turns
+        <br>
+        <small><i>${effect.reason}</i></small>
+        </p>
+    `
+}
+
+
+function renderObjectDescription(el, o) {
+    const buff = renderStatusEffect(o.buff, true);
+    const debuff = renderStatusEffect(o.debuff, false);
+
+    el.style.display = 'block';
+    el.innerHTML = `
+        <strong>${o.name}</strong>
+        <p>${o.object_description}</p>
+        <ul>
+            <li>Attack: ${o.attack_description}</li>
+            <li>Strength: ${o.strength}</li>
+            <li>Durability: ${o.durability}</li>
+            <li>Accuracy: ${o.accuracy}</li>
+            <li>Speed: ${o.speed}</li>
+        </ul>
+        ${buff || debuff ? '<strong>Special Effects:</strong>' : ''}
+        ${buff || ''}
+        ${debuff || ''}
+    `
+}
