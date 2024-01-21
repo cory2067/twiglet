@@ -177,7 +177,7 @@ wire_clippers_debuff = Modifier(
     stat_affected="strength",
     value=0.2,
     duration=5,
-    reason="The opponent's weapon is breaks, making it much weaker",
+    reason="The opponent's weapon breaks, making it much weaker",
 )
 
 wire_clippers = GameObject(
@@ -190,7 +190,7 @@ wire_clippers = GameObject(
     strength=0,
     debuff=None,
     buff=None,
-    file="wire_clippers.png",
+    file="wireclippers.png",
 )
 
 OBJECTS.append(wire_clippers)
@@ -214,7 +214,7 @@ coffee_pot = GameObject(
     strength=6,
     debuff=None,
     buff=coffee_pot_buff,
-    file="coffee_pot.png",
+    file="coffeepot.png",
 )
 
 OBJECTS.append(coffee_pot)
@@ -235,6 +235,54 @@ computer = GameObject(
 )
 
 OBJECTS.append(computer)
+
+# ====================================================
+
+fork = GameObject(
+    name="Fork",
+    object_description="A standard metal fork from the kitchen",
+    attack_description="Stab the opponent with the fork",
+    durability=5,
+    accuracy=80,
+    speed=5,
+    strength=5,
+    debuff=None,
+    buff=None,
+    file="fork.png",
+)
+
+OBJECTS.append(fork)
+
+# ====================================================
+
+headphones_debuff = Modifier(
+    stat_affected="accuracy",
+    value=5,
+    duration=4,
+    reason="The opponent is mildly distracted by the music blasting from your headphones",
+)
+
+headphones_buff = Modifier(
+    stat_affected="speed",
+    value=1,
+    duration=4,
+    reason="You are pumped by listening to your favorite music"
+)
+
+headphones = GameObject(
+    name="Headphones",
+    object_description="A set of open back, wired headphones",
+    attack_description="Use the wire and headphones like a ball and chain to attack the opponent",
+    durability=3,
+    accuracy=50,
+    speed=3,
+    strength=1,
+    debuff=headphones_debuff,
+    buff=headphones_buff,
+    file="headphones.png",
+)
+
+OBJECTS.append(headphones)
 
 # ====================================================
 
@@ -259,3 +307,51 @@ pen = GameObject(
 )
 
 OBJECTS.append(pen)
+
+# ====================================================
+
+teacup_buff = Modifier(
+    stat_affected="speed",
+    value=1,
+    duration=3,
+    reason="Take a quick sip of tea before attacking",
+)
+
+teacup = GameObject(
+    name="Teacup",
+    object_description="A delicate china teacup filled with tea",
+    attack_description="Splash hot tea on your opponent",
+    durability=1,
+    accuracy=70,
+    speed=4,
+    strength=3,
+    debuff=None,
+    buff=teacup_buff,
+    file="teacup.png",
+)
+
+OBJECTS.append(teacup)
+
+# ====================================================
+
+videocamera_debuff = Modifier(
+    stat_affected="accuracy",
+    value=50,
+    duration=2,
+    reason="The opponent hesitates briefly, because they do not want to be caught being violent on camera",
+)
+
+videocamera = GameObject(
+    name="Video Camera",
+    object_description="An HD video camera used by journalists across the globe",
+    attack_description="Show the world the degeneracy of your opponent",
+    durability=1,
+    accuracy=60,
+    speed=1,
+    strength=0,
+    debuff=videocamera_debuff,
+    buff=None,
+    file="videocamera.png",
+)
+
+OBJECTS.append(videocamera)
