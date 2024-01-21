@@ -238,7 +238,8 @@ function finishCrafting() {
 }
  
 async function startBattle() {
-    const arsenalId = await submitArsenal(displayedObjects, "My Arsenal"); // todo: name
+    const craftingObjects = getCraftingObjects()
+    const arsenalId = await submitArsenal(craftingObjects, "My Arsenal"); // todo: name
     console.log(arsenalId)
     window.location.href = `/battle.html?arsenal=${arsenalId}`
 }
