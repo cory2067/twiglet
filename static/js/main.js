@@ -2,6 +2,7 @@ const WIDTH = 1000;
 const HEIGHT = 900;
 const CRAFTING_AREA_WIDTH = 150;
 const MAIN_AREA_WIDTH = WIDTH - CRAFTING_AREA_WIDTH;
+const MAX_CRAFTING_OBJECTS = 3;
 
 const app = new PIXI.Application({ background: '#eeeeee', width: WIDTH, height: HEIGHT });
 
@@ -120,10 +121,24 @@ function renderSidebar(selectedObject) {
     renderCraftingList(craftingEl, craftingObjects);
 
     const craftButton = document.querySelector("#craft-button")
-    craftButton.disabled = (craftingObjects.length === 0);
+    craftButton.disabled = (craftingObjects.length === 0 || craftingObjects.length > MAX_CRAFTING_OBJECTS);
+}
+
+function renderStatusEffect(effect, isBuff) {
+    if (!effect) return '';
+    return `
+        <p>
+        ${isBuff ? 'Increases your' : "Decreases opponent's"} ${effect.stat_affected} by ${effect.value} for ${effect.duration} turns
+        <br>
+        <small><i>${effect.reason}</i></small>
+        </p>
+    `
 }
 
 function renderObjectDescription(el, o) {
+    const buff = renderStatusEffect(o.buff, true);
+    const debuff = renderStatusEffect(o.debuff, false);
+
     el.style.display = 'block';
     el.innerHTML = `
         <strong>${o.name}</strong>
@@ -135,6 +150,9 @@ function renderObjectDescription(el, o) {
             <li>Accuracy: ${o.accuracy}</li>
             <li>Speed: ${o.speed}</li>
         </ul>
+        ${buff || debuff ? '<strong>Special Effects:</strong>' : ''}
+        ${buff || ''}
+        ${debuff || ''}
     `
 }
 
@@ -162,22 +180,22 @@ async function submitCraft() {
     const objects = getCraftingObjects();
     const craftedObject = await craft(objects, prompt.value);
     progress.style.opacity = 0;
-    initTexture(craftedObject);
-
+    prompt.value = "";
+    
     for (const object of objects) {
         object.sprite.destroy();
     }
     // remove destroyed objects from displayedObjects
     displayedObjects = displayedObjects.filter(o => !!o.sprite.transform);
-    renderSidebar(craftedObject);
-    prompt.value = "";
    
+    initTexture(craftedObject);
     createObject(
         craftedObject,
         MAIN_AREA_WIDTH + CRAFTING_AREA_WIDTH / 2,
         HEIGHT / 2,
     );
     displayedObjects.push(craftedObject);
+    renderSidebar(craftedObject);
 }
  
 
