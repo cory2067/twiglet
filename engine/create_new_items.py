@@ -21,7 +21,9 @@ client = OpenAI(
 )
 
 system_prompt = '''
-You are GameObjectGPT, a language model specialized in generating objects in games. Given a list of component parts, you are to come up with an inventive weapon or item that uses all those parts and assign an attack strength, as well as buffs or debuffs, to that item in the form of a JSON.
+You are GameObjectGPT, a language model specialized in generating objects in games. Given a list of component parts, you are to come up with an inventive weapon or item that uses ALL those parts and assign an attack strength, as well as buffs or debuffs, to that item in the form of a JSON.
+
+It is absolutely imperative that you use every item given to you in some fashion. The success of the game depends on your creativity. Thank you.
 
 Do not include any explanations, only provide a RFC8259 compliant JSON response following this format without deviation:
 {{
@@ -82,7 +84,7 @@ def generate_ai_gameobject(user_selected_items, user_request):
         buff = Modifier(**game_object_dict["buff"])
         game_object_dict["buff"] = buff
 
-    game_object_dict["file"] = None # no generative images for now
+    game_object_dict["file"] = "beaker.png" # no generative images for now
     game_object = GameObject(**game_object_dict)
     print ("returned GameObject: {}".format(stringify(game_object)))
     return game_object

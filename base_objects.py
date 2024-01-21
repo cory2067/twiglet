@@ -253,7 +253,7 @@ pen = GameObject(
     accuracy=5,
     speed=1,
     strength=0,
-    debuff=None,
+    debuff=pen_debuff,
     buff=None,
     file="pen.png",
 )
